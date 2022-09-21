@@ -25,7 +25,7 @@ class TodoContainer extends React.Component{
         ]
     };
 
-    handleChange = (id) =>{
+    handleChange = (id) => {
         this.setState(prevState => ({ //Updater function
             todos: prevState.todos.map(todo => {
                 if (todo.id === id) {
@@ -50,7 +50,7 @@ class TodoContainer extends React.Component{
         })
     };
 
-    delTodo = (id) =>{
+    deleteTodo = (id) => {
         this.setState({
             todos: [
                 ...this.state.todos.filter(todo => { //filter returns a new array by applying a condition on every array element
@@ -69,7 +69,7 @@ class TodoContainer extends React.Component{
                     <TodosList 
                         todos={this.state.todos}
                         handleChangeProps={this.handleChange}
-                        deleteTodoProps={this.delTodo}
+                        deleteTodoProps={this.deleteTodo}
                     />
                 </div>
             </div>
