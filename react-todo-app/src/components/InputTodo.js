@@ -5,13 +5,13 @@ class InputTodo extends Component {
         title: ""
     };
 
-    onChange = e =>{
+    onChange = e => {
         this.setState({
             [e.target.name]: e.target.value //Assigns values to all the text input fields whose names match the ones in the state.
         });
     };
 
-    handleSubmit = e =>{
+    handleSubmit = e => {
         e.preventDefault();
         if (this.state.title.trim()) {
             this.props.addTodoProps(this.state.title);
