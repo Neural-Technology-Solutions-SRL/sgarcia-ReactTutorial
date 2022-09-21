@@ -7,17 +7,23 @@ class InputTodo extends Component {
 
     onChange = e =>{
         this.setState({
-            title: e.target.value
+            [e.target.name]: e.target.value //Assigns values to all the text input fields whose names match the ones in the state.
         });
     };
+
+    handleSubmit = e =>{
+        e.preventDefault();
+        console.log(this.state.title);
+    }
     
     render() {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <input 
                     type="text"
                     placeholder="Add Todo..."
                     value={this.state.title}
+                    name="title"
                     onChange={this.onChange}
                 />
                 <button>Submit</button>
