@@ -5,6 +5,10 @@ class TodoItem extends React.Component {
     state = {
         editing: false
     }
+
+    componentWillUnmount() {
+        console.log("Cleaning up...")
+    }
     
     handleEditing = () => {
         this.setState({
