@@ -71,8 +71,8 @@ class TodoContainer extends React.Component{
         })
     }
     
-    render(){
-        return(
+    render() {
+        return (
             <div className="container">
                 <div className="inner">
                     <Header />
