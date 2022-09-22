@@ -1,15 +1,15 @@
-import React from "react"
-import ReactDom from "react-dom"
+import React from "react";
+import ReactDom from "react-dom";
 
 //component file
-import TodoContainer from "./components/TodoContainer"
+import TodoContainer from "./components/TodoContainer";
 
 //stylesheet
-import "./App.css"
+import "./App.css";
 
 ReactDom.render(
-<React.StrictMode>
+  <React.StrictMode>
     <TodoContainer />
-</React.StrictMode>, 
-document.getElementById("root")
-)
+  </React.StrictMode>,
+  document.getElementById("root")
+);
