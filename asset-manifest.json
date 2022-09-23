@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/sgarcia-ReactTutorial/static/css/main.6d039965.css",
-    "main.js": "/sgarcia-ReactTutorial/static/js/main.072a8458.js",
+    "main.js": "/sgarcia-ReactTutorial/static/js/main.a9cf252b.js",
     "index.html": "/sgarcia-ReactTutorial/index.html",
     "main.6d039965.css.map": "/sgarcia-ReactTutorial/static/css/main.6d039965.css.map",
-    "main.072a8458.js.map": "/sgarcia-ReactTutorial/static/js/main.072a8458.js.map"
+    "main.a9cf252b.js.map": "/sgarcia-ReactTutorial/static/js/main.a9cf252b.js.map"
   },
   "entrypoints": [
     "static/css/main.6d039965.css",
-    "static/js/main.072a8458.js"
+    "static/js/main.a9cf252b.js"
   ]
 }
