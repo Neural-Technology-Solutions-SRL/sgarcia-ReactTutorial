@@ -24,7 +24,7 @@ const SinglePage = () => {
   return (
     <div>
       <h1>{title}</h1>
-      <p1>{description}</p1>
+      <p>{description}</p>
     </div>
   );
 };
