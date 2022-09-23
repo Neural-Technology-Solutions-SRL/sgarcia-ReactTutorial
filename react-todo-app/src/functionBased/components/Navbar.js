@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
@@ -15,13 +15,29 @@ const Navbar = () => {
     },
   ];
 
+  const [navBarOpen, setNavBarOpen] = useState(false);
+
+  const handleToggle = () => {
+    setNavBarOpen((prevState) => !prevState);
+  };
+
+  const closeMenu = () => {
+    setNavBarOpen(false);
+  };
+
   return (
     <nav className="navBar">
-      <ul>
+      <button onClick={handleToggle}>{navBarOpen ? "Close" : "Open"}</button>
+      <ul className={`menuNav ${navBarOpen ? " showMenu" : ""}`}>
         {links.map((link) => {
           return (
             <li key={link.id}>
-              <NavLink to={link.path} className="active-link" end>
+              <NavLink
+                to={link.path}
+                className="active-link"
+                onClick={() => closeMenu()}
+                end
+              >
                 {link.text}
               </NavLink>
             </li>
