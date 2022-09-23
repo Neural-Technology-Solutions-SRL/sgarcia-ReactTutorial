@@ -69,6 +69,7 @@ const TodoContainer = () => {
   };
 
   return (
+    //React fragment
     <>
       <Navbar />
       <Routes>
