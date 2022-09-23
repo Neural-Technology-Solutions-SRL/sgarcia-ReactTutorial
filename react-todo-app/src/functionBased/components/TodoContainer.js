@@ -4,7 +4,7 @@ import InputTodo from "./InputTodo";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import { v4 as uuidv4 } from "uuid";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import About from "../pages/About";
 import NoMatch from "../pages/NoMatch";
 
@@ -71,28 +71,27 @@ const TodoContainer = () => {
   return (
     <>
       <Navbar />
-      <Switch>
-        <Route exact path="/">
-          <div className="container">
-            <div className="inner">
-              <Header />
-              <InputTodo addTodoProps={addTodoItem} />
-              <TodosList
-                todos={todos}
-                handleChangeProps={handleChange}
-                deleteTodoProps={deleteTodo}
-                setUpdate={setUpdate}
-              />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="container">
+              <div className="inner">
+                <Header />
+                <InputTodo addTodoProps={addTodoItem} />
+                <TodosList
+                  todos={todos}
+                  handleChangeProps={handleChange}
+                  deleteTodoProps={deleteTodo}
+                  setUpdate={setUpdate}
+                />
+              </div>
             </div>
-          </div>
-        </Route>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="*">
-          <NoMatch />
-        </Route>
-      </Switch>
+          }
+        />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
     </>
   );
 };
