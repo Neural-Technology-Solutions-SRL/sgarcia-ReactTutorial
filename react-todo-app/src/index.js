@@ -10,7 +10,7 @@ import "./functionBased/App.css";
 
 ReactDom.render(
   <React.StrictMode>
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <TodoContainer />
     </Router>
   </React.StrictMode>,
