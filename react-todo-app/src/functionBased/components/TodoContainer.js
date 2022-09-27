@@ -62,12 +62,16 @@ const TodoContainer = () => {
   };
 
   const deleteTodo = (id) => {
-    setTodos([
-      ...todos.filter((todo) => {
-        //filter returns a new array by applying a condition on every array element
-        return todo.id !== id;
-      }),
-    ]);
+    fetch(`${uri}/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      setTodos([
+        ...todos.filter((todo) => {
+          //filter returns a new array by applying a condition on every array element
+          return todo.id !== id;
+        }),
+      ]);
+    });
   };
 
   const setUpdate = (updatedTitle, id) => {
