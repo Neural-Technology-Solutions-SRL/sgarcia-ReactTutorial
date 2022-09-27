@@ -32,20 +32,22 @@ const TodoContainer = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(todo),
-    }).then(
-      setTodos((prevState) =>
-        //Updater function
-        prevState.map((todo) => {
-          if (todo.id === item.id) {
-            return {
-              ...todo, //Spread Operator to spread the properties of the item
-              completed: !todo.completed,
-            };
-          }
-          return todo;
-        })
+    })
+      .then(
+        setTodos((prevState) =>
+          //Updater function
+          prevState.map((todo) => {
+            if (todo.id === item.id) {
+              return {
+                ...todo, //Spread Operator to spread the properties of the item
+                completed: !todo.completed,
+              };
+            }
+            return todo;
+          })
+        )
       )
-    );
+      .catch((error) => console.error("Unable to check item.", error));
   };
 
   const addTodoItem = (title) => {
@@ -72,14 +74,16 @@ const TodoContainer = () => {
   const deleteTodo = (id) => {
     fetch(`${uri}/${id}`, {
       method: "DELETE",
-    }).then(() => {
-      setTodos([
-        ...todos.filter((todo) => {
-          //filter returns a new array by applying a condition on every array element
-          return todo.id !== id;
-        }),
-      ]);
-    });
+    })
+      .then(() => {
+        setTodos([
+          ...todos.filter((todo) => {
+            //filter returns a new array by applying a condition on every array element
+            return todo.id !== id;
+          }),
+        ]);
+      })
+      .catch((error) => console.error("Unable to delete item.", error));
   };
 
   const setUpdate = (updatedTitle, item) => {
@@ -106,7 +110,7 @@ const TodoContainer = () => {
           })
         )
       )
-      .catch((error) => console.error("Unable to check item.", error));
+      .catch((error) => console.error("Unable to update item.", error));
   };
 
   return (
