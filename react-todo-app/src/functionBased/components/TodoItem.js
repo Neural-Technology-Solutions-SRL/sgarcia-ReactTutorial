@@ -46,7 +46,7 @@ const TodoItem = (props) => {
           type="checkbox"
           className={styles.checkbox}
           checked={completed}
-          onChange={() => props.handleChangeProps(id)}
+          onChange={() => props.handleChangeProps(props.todo)}
         />
         <button onClick={() => props.deleteTodoProps(id)}>
           <FaTrash style={{ color: "orangered", fontSize: "16px" }} />

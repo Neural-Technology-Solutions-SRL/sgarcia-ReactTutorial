@@ -19,18 +19,32 @@ const TodoContainer = () => {
       .catch((error) => console.error("Unable to get items.", error));
   }, []);
 
-  const handleChange = (id) => {
-    setTodos((prevState) =>
-      //Updater function
-      prevState.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo, //Spread Operator to spread the properties of the item
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      })
+  const handleChange = (item) => {
+    const todo = {
+      ...item,
+      completed: !item.completed,
+    };
+
+    fetch(`${uri}/${item.id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todo),
+    }).then(
+      setTodos((prevState) =>
+        //Updater function
+        prevState.map((todo) => {
+          if (todo.id === item.id) {
+            return {
+              ...todo, //Spread Operator to spread the properties of the item
+              completed: !todo.completed,
+            };
+          }
+          return todo;
+        })
+      )
     );
   };
 
