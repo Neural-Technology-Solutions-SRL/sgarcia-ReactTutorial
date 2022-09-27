@@ -10,20 +10,14 @@ import NoMatch from "../pages/NoMatch";
 
 const TodoContainer = () => {
   const uri = "https://localhost:7110/api/todoitems";
-  const [todos, setTodos] = useState(getInitialTodos());
-
-  function getInitialTodos() {
-    //getting stored items
-    const temp = localStorage.getItem("todos");
-    const savedTodos = JSON.parse(temp);
-    return savedTodos || [];
-  }
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    //storing todos items
-    const temp = JSON.stringify(todos);
-    localStorage.setItem("todos", temp);
-  }, [todos]);
+    fetch(uri)
+      .then((response) => response.json())
+      .then((data) => setTodos(data))
+      .catch((error) => console.error("Unable to get items.", error));
+  }, []);
 
   const handleChange = (id) => {
     setTodos((prevState) =>
