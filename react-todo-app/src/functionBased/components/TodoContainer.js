@@ -9,7 +9,7 @@ import About from "../pages/About";
 import NoMatch from "../pages/NoMatch";
 
 const TodoContainer = () => {
-  const uri = "https://localhost:7110/api/todoitems";
+  const uri = "http://www.todoapisrgarcia.somee.com/api/todoitems";
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
