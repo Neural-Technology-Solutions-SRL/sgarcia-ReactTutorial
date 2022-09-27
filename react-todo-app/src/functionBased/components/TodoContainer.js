@@ -82,15 +82,31 @@ const TodoContainer = () => {
     });
   };
 
-  const setUpdate = (updatedTitle, id) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) {
-          todo.title = updatedTitle;
-        }
-        return todo;
-      })
-    );
+  const setUpdate = (updatedTitle, item) => {
+    const todo = {
+      ...item,
+      title: updatedTitle,
+    };
+
+    fetch(`${uri}/${item.id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todo),
+    })
+      .then(
+        setTodos(
+          todos.map((todo) => {
+            if (todo.id === item.id) {
+              todo.title = updatedTitle;
+            }
+            return todo;
+          })
+        )
+      )
+      .catch((error) => console.error("Unable to check item.", error));
   };
 
   return (
