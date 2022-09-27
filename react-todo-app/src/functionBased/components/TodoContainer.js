@@ -9,6 +9,7 @@ import About from "../pages/About";
 import NoMatch from "../pages/NoMatch";
 
 const TodoContainer = () => {
+  const uri = "https://localhost:7110/api/todoitems";
   const [todos, setTodos] = useState(getInitialTodos());
 
   function getInitialTodos() {
@@ -45,7 +46,19 @@ const TodoContainer = () => {
       title: title,
       completed: false,
     };
-    setTodos([...todos, newTodo]);
+
+    fetch(uri, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTodo),
+    })
+      .then(() => {
+        setTodos([...todos, newTodo]);
+      })
+      .catch((error) => console.error("Unable to add item.", error));
   };
 
   const deleteTodo = (id) => {
