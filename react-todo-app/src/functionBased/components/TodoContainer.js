@@ -9,34 +9,45 @@ import About from "../pages/About";
 import NoMatch from "../pages/NoMatch";
 
 const TodoContainer = () => {
-  const [todos, setTodos] = useState(getInitialTodos());
-
-  function getInitialTodos() {
-    //getting stored items
-    const temp = localStorage.getItem("todos");
-    const savedTodos = JSON.parse(temp);
-    return savedTodos || [];
-  }
+  const uri = "https://localhost:7110/api/todoitems";
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    //storing todos items
-    const temp = JSON.stringify(todos);
-    localStorage.setItem("todos", temp);
-  }, [todos]);
+    fetch(uri)
+      .then((response) => response.json())
+      .then((data) => setTodos(data))
+      .catch((error) => console.error("Unable to get items.", error));
+  }, []);
 
-  const handleChange = (id) => {
-    setTodos((prevState) =>
-      //Updater function
-      prevState.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo, //Spread Operator to spread the properties of the item
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      })
-    );
+  const handleChange = (item) => {
+    const todo = {
+      ...item,
+      completed: !item.completed,
+    };
+
+    fetch(`${uri}/${item.id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todo),
+    })
+      .then(
+        setTodos((prevState) =>
+          //Updater function
+          prevState.map((todo) => {
+            if (todo.id === item.id) {
+              return {
+                ...todo, //Spread Operator to spread the properties of the item
+                completed: !todo.completed,
+              };
+            }
+            return todo;
+          })
+        )
+      )
+      .catch((error) => console.error("Unable to check item.", error));
   };
 
   const addTodoItem = (title) => {
@@ -45,27 +56,61 @@ const TodoContainer = () => {
       title: title,
       completed: false,
     };
-    setTodos([...todos, newTodo]);
+
+    fetch(uri, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTodo),
+    })
+      .then(() => {
+        setTodos([...todos, newTodo]);
+      })
+      .catch((error) => console.error("Unable to add item.", error));
   };
 
   const deleteTodo = (id) => {
-    setTodos([
-      ...todos.filter((todo) => {
-        //filter returns a new array by applying a condition on every array element
-        return todo.id !== id;
-      }),
-    ]);
+    fetch(`${uri}/${id}`, {
+      method: "DELETE",
+    })
+      .then(() => {
+        setTodos([
+          ...todos.filter((todo) => {
+            //filter returns a new array by applying a condition on every array element
+            return todo.id !== id;
+          }),
+        ]);
+      })
+      .catch((error) => console.error("Unable to delete item.", error));
   };
 
-  const setUpdate = (updatedTitle, id) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) {
-          todo.title = updatedTitle;
-        }
-        return todo;
-      })
-    );
+  const setUpdate = (updatedTitle, item) => {
+    const todo = {
+      ...item,
+      title: updatedTitle,
+    };
+
+    fetch(`${uri}/${item.id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todo),
+    })
+      .then(
+        setTodos(
+          todos.map((todo) => {
+            if (todo.id === item.id) {
+              todo.title = updatedTitle;
+            }
+            return todo;
+          })
+        )
+      )
+      .catch((error) => console.error("Unable to update item.", error));
   };
 
   return (
